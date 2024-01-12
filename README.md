@@ -1,3 +1,4 @@
-# GEOG5015: Homework solution for Week 2
+# GEOG5015: Homework solutions
 
-Here is the finished map of Glasgow's SIMD 2020.
+
++ the finished map of [Glasgow's SIMD 2020](lab2/simd2020.html).
