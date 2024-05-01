@@ -127,7 +127,7 @@ function submit() {
   var reasons = [];
   if (boxes) {
     for (const box of boxes) {
-      reasons.append(box.value);
+      reasons.push(box.value);
     }
   }
   res["reasons"] = reasons;
