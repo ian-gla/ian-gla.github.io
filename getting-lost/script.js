@@ -1,16 +1,10 @@
 function createList(div) {
   const reasons = {
-    exits: "Number of Exits",
-    angular: "Angular Distance between Exits",
     pedestrian: "Pedestrian Flows",
     transport: "Transport Flows",
     visibility: "Visibility",
-    decisions: "Number of Dicision Points",
-    landmarks: "Number of Landmarks",
     orientation: "Self Orientation Skills",
     context: "Personal Context",
-    turns: "Number of Turning Points",
-    complexity: "City/Small Scale Complexity",
     amap: "Access to Reliable Map",
     familiarity: "Familiaraty",
     names: "Name Similarity"
@@ -45,44 +39,63 @@ function createList(div) {
 
   ta = document.createElement("TEXTAREA");
 
-  ta.cols = 100;
-  ta.rows = 10;
+  //ta.cols = 40;
+  //ta.rows = 10;
   ta.placeholder = "Any other information";
   target.appendChild(ta);
+  target.style.visibility='hidden';
+}
+
+var labels = {};
+var names = {};
+labels["start"] = "Last known pos";
+labels["lost"] = "got lost";
+labels["end"] = "Next known pos";
+for (key in labels) {
+  names[labels[key]] = key;
 }
 
 function createButtons(div) {
   var target = document.querySelector("#" + div);
-  var start = document.createElement("button");
-  start.innerHTML = "start";
-  start.class = "button";
-  start.onclick = clicked;
-  target.appendChild(start);
-  var lost = document.createElement("button");
-  lost.innerHTML = "lost";
-  lost.class = "button";
-  lost.onclick = clicked;
-  target.appendChild(lost);
-  var end = document.createElement("button");
-  end.innerHTML = "end";
-  end.class = "button";
-  end.onclick = clicked;
-  target.appendChild(end);
+  var startB = document.createElement("button");
+  startB.innerHTML = labels["start"];
+  startB.class = "button";
+  startB.onclick = clicked;
+  target.appendChild(startB);
+  var lostB = document.createElement("button");
+  lostB.innerHTML = labels["lost"];
+  lostB.class = "button";
+  lostB.onclick = clicked;
+  target.appendChild(lostB);
+  var endB = document.createElement("button");
+  endB.innerHTML = labels["end"];
+  endB.class = "button";
+  endB.onclick = clicked;
+  target.appendChild(endB);
 }
 
 function clicked(e) {
   addMarker(e.target.innerHTML);
 }
+var checks = document.querySelector("#checks");
+var info = document.querySelector("#info");
+var data_entry = document.querySelector('#data-entry-panel');
+checks.style.visibility = 'hidden';
+data_entry.style.visibility = 'hidden';
 var map = L.map("map").setView([51.505, -0.09], 13);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution:
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+const search = new GeoSearch.GeoSearchControl({
+  provider: new GeoSearch.OpenStreetMapProvider()
+});
 
+map.addControl(search);
 createList("checks");
-createButtons("mapbox");
-createSubmit("right");
+createButtons("buttonBar");
+createSubmit("checks");
 var positions = {};
 function addMarker(name) {
   const colors = {
@@ -94,40 +107,68 @@ function addMarker(name) {
       "https://raw.githubusercontent.com/planetfederal/geosilk/master/silk/flag_blue.png"
   };
 
-  if (!positions[name]) {
+  if (!positions[names[name]]) {
     var point = map.getCenter();
 
     var icon = L.icon({
-      iconUrl: colors[name],
+      iconUrl: colors[names[name]],
       iconSize: [30, 30]
     });
     var marker = new L.marker(point, {
       icon: icon,
-      title: name,
+      title: labels[names[name]],
       draggable: true,
       autoPan: true
     }).addTo(map);
-    positions[name] = marker;
+    positions[names[name]] = marker;
   } else {
-    console.log("moving to ", positions[name].getLatLng());
-    map.panTo(positions[name].getLatLng());
+    map.panTo(positions[names[name]].getLatLng());
+  }
+  if(Object.values(positions).length == 3){
+    displayChecks();
   }
 }
 
+function reset(){ 
+    info.style.visibility='visible';
+    checks.style.visibility='hidden';
+    data_entry.style.visibility='hidden';
+  var n = ['start', 'lost', 'end'];
+  for(const m of n){
+    console.log(m)
+    console.log(positions[m])
+    map.removeLayer(positions[m]);
+  }
+  positions = {};
+
+}
+function displayChecks(){
+    info.style.visibility='hidden';
+    data_entry.style.visibility='visible';
+}
+function changeView(){
+    checks.style.visibility='visible';
+    data_entry.style.visibility='hidden';
+}
+
 function submit() {
-  var start = positions["start"] ? positions["start"].getLatLng() : "";
-  var end = positions["end"] ? positions["end"].getLatLng() : "";
-  var lost = positions["lost"] ? positions["lost"].getLatLng() : "";
+  var startPos = positions["start"] ? positions["start"].getLatLng() : "";
+  var endPos = positions["end"] ? positions["end"].getLatLng() : "";
+  var lostPos = positions["lost"] ? positions["lost"].getLatLng() : "";
   res = {
-    start: start,
-    end: end,
-    lost: lost
+    start: startPos,
+    end: endPos,
+    lost: lostPos
   };
+  s= data_entry.getElementsByTagName('select');
+  for(var i=0;i<s.length;i++){
+    res[s[i].id] = s[i].options[s[i].selectedIndex].value;
+  }
   boxes = getCheckedBoxes("reason");
   var reasons = [];
   if (boxes) {
     for (const box of boxes) {
-      reasons.append(box.value);
+      reasons.push(box.value);
     }
   }
   res["reasons"] = reasons;
@@ -135,6 +176,7 @@ function submit() {
     res["text"] = ta.value;
   }
   alert(JSON.stringify(res));
+  reset();
 }
 
 function getCheckedBoxes(chkboxName) {
@@ -153,9 +195,9 @@ function getCheckedBoxes(chkboxName) {
 
 function createSubmit(div) {
   var target = document.querySelector("#" + div);
-  var start = document.createElement("button");
-  start.innerHTML = "submit";
-  start.class = "button";
-  start.onclick = submit;
-  target.appendChild(start);
+  var startEl = document.createElement("button");
+  startEl.innerHTML = "submit";
+  startEl.class = "button";
+  startEl.onclick = submit;
+  target.appendChild(startEl);
 }
