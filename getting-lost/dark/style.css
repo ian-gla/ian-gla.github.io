@@ -56,7 +56,7 @@ option:not(:checked),
 input, 
 textarea,
 button {
-  background: darkgray !important;
+  background: darkgray;
   color: white;
 }
 
