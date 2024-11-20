@@ -1,0 +1,209 @@
+#map {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  zindex: 0;
+}
+#outer {
+  width:100%;
+  position: absolute;
+  bottom: 10px;
+  z-index: 2000;
+}
+#buttonBar {
+  margin: 0 auto;
+  display: table;
+  margin: 0 auto;
+  width: 500px;
+  padding: 15px;
+  z-index: 2000;
+}
+
+.data-panel label,
+.data-panel select,
+.data-panel textarea {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+}
+#sidebar {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+ /* bottom: 100px;*/
+  width: 300px;
+  max-width: 30%;
+  min-width: 100px;
+  max-height: 90%;
+  padding: 2px;
+  overflow: auto;
+  background-color: #f8f8f8;
+  border: 1px solid #000000;
+  z-index: 1900;
+  display: grid;
+  place-items: start center;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: horizontal;
+}
+
+.resizable-content {
+  min-height: 30px;
+  min-width: 30px;
+  resize: both;
+  overflow: auto;
+  max-height: fit-content;
+  max-width: fit-content;
+}
+
+#checks, #info, .data-panel {
+  position: relative;
+  //top: 30px;
+  //right: 10px;
+  width: 100%;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  z-index: 1000;
+}
+.button {
+  height: 20px;
+  width: 50px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#start {
+  background-color: #a5df9b; /* Green */
+}
+
+#lost {
+  background-color: #81cdff;
+}
+#end {
+  background-color: #ff6057;
+}
+textarea {
+  width: 100%;
+  height: 150px;
+}
+
+#message {
+  overflow-wrap: break-word;
+}
+
+.leaflet-container.start-flag-cursor-enabled {
+    cursor:url(assets/flag_green.png) 20 27, crosshair;
+}
+.leaflet-container.lost-flag-cursor-enabled {
+    cursor:url(assets/flag_blue.png) 20 27, crosshair;
+}
+.leaflet-container.end-flag-cursor-enabled {
+    cursor:url(assets/flag_red.png) 20 27, crosshair;
+}
+
+/* set thumb width */
+input[type=range], input[type=range] + datalist { --thumb-width: 8px; }
+
+/* style range */
+input[type=range] {
+  -webkit-appearance: none; /* hide track and thumb */
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+}
+
+/* style datalist */
+input[type=range] + datalist {
+  display: flex;
+  margin-top: -4px;
+}
+input[type=range] + datalist option {
+  display: inline-block;
+  width: calc((100% - var(--thumb-width)) / (var(--list-length) - 1));
+  text-align: center;
+}
+input[type=range] + datalist option:first-child {
+  width: calc((100% - var(--thumb-width)) / ((var(--list-length) - 1) * 2) + var(--thumb-width) / 2);
+  text-align: left;
+}
+input[type=range] + datalist option:last-child {
+  width: calc((100% - var(--thumb-width)) / ((var(--list-length) - 1) * 2) + var(--thumb-width) / 2);
+  text-align: right;
+}
+
+/* style Firefox range and thumb */
+input[type=range]::-moz-range-track {
+    background: #eee;
+    cursor: pointer;
+
+    height: 2px;
+    border: 1px solid #888;
+    border-radius: 1px;
+}
+input[type=range]::-moz-range-thumb {
+    background: #eee;
+
+    box-sizing: border-box;
+    width: var(--thumb-width);
+    height: 20px;
+
+    cursor: pointer;
+
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+/* style Chrome range and thumb */
+input[type=range]::-webkit-slider-runnable-track {
+    background: #eee;
+    cursor: pointer;
+
+    height: 2px;
+    border: 1px solid #888;
+    border-radius: 1px;
+}
+input[type=range]::-webkit-slider-thumb {
+    background: #eee;
+
+    box-sizing: border-box;
+    width: var(--thumb-width);
+    height: 20px;
+
+    cursor: pointer;
+
+    border: 1px solid #888;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
