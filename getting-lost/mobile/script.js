@@ -298,6 +298,7 @@ function cleanup() {
     document.getElementById('continue').remove();
     buttonAdded = false;
 
+    map._container.style.display = 'block';
     buttons.style.display = 'block';
     data_entry.style.display = 'none';
     data2_entry.style.display = 'none';
@@ -324,6 +325,10 @@ function displayChecks() {
         if (circles[m]) {
           circles[m].off("click");
         }
+    }
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    if(mediaQuery.matches){
+      map._container.style.display = 'none';
     }
     buttons.style.display = 'none';
     info.style.display = 'none';
