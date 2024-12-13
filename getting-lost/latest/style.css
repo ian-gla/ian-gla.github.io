@@ -1,0 +1,273 @@
+#map {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  zindex: 0;
+}
+#outer {
+  width:100%;
+  position: absolute;
+  top: 10px;
+  z-index: 2000;
+}
+#buttonBar {
+  margin: 0 auto;
+  display: table;
+  margin: 0 auto;
+  width: 500px;
+  padding: 15px;
+  padding-right: 50px;
+  z-index: 2000;
+}
+
+.data-panel label,
+.data-panel select,
+.data-panel textarea {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+}
+#sidebar {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+ /* bottom: 100px;*/
+  width: 300px;
+  max-width: 30%;
+  min-width: 100px;
+  max-height: 90%;
+  margin: 2px;
+  padding: 12px;
+  overflow: auto;
+  background-color: #f8f8f8;
+  border: 1px solid #000000;
+  z-index: 1900;
+  display: grid;
+  place-items: start center;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: horizontal;
+}
+
+.resizable-content {
+  min-height: 30px;
+  min-width: 30px;
+  resize: both;
+  overflow: auto;
+  max-height: fit-content;
+  max-width: fit-content;
+}
+
+#checks, #info, .data-panel {
+  position: relative;
+  //top: 30px;
+  //right: 10px;
+  width: 100%;
+  background-color: #f8f8f8;
+  z-index: 1000;
+}
+.button {
+  height: 20px;
+  width: 50px;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#start {
+  background-color: #a5df9b; /* Green */
+}
+
+#lost {
+  background-color: #81cdff;
+}
+#end {
+  background-color: #ff6057;
+}
+textarea {
+  width: 100%;
+  height: 150px;
+}
+
+#message {
+  overflow-wrap: break-word;
+}
+
+.leaflet-container.start-flag-cursor-enabled {
+    cursor:url(https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png) 12 41, crosshair;
+}
+.leaflet-container.lost-flag-cursor-enabled {
+    cursor:url(https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png) 12 41, crosshair;
+}
+.leaflet-container.end-flag-cursor-enabled {
+    cursor:url(https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png) 12 41, crosshair;
+}
+
+/* set thumb width */
+input[type=range], input[type=range] + datalist { --thumb-width: 8px; }
+
+/* style range */
+input[type=range] {
+  -webkit-appearance: none; /* hide track and thumb */
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+}
+
+/* style datalist */
+input[type=range] + datalist {
+  display: flex;
+  margin-top: -4px;
+}
+input[type=range] + datalist option {
+  display: inline-block;
+  width: calc((100% - var(--thumb-width)) / (var(--list-length) - 1));
+  text-align: center;
+}
+input[type=range] + datalist option:first-child {
+  width: calc((100% - var(--thumb-width)) / ((var(--list-length) - 1) * 2) + var(--thumb-width) / 2);
+  text-align: left;
+}
+input[type=range] + datalist option:last-child {
+  width: calc((100% - var(--thumb-width)) / ((var(--list-length) - 1) * 2) + var(--thumb-width) / 2);
+  text-align: right;
+}
+
+/* style Firefox range and thumb */
+input[type=range]::-moz-range-track {
+    background: #eee;
+    cursor: pointer;
+
+    height: 2px;
+    border: 1px solid #888;
+    border-radius: 1px;
+}
+input[type=range]::-moz-range-thumb {
+    background: #eee;
+
+    box-sizing: border-box;
+    width: var(--thumb-width);
+    height: 20px;
+
+    cursor: pointer;
+
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+/* style Chrome range and thumb */
+input[type=range]::-webkit-slider-runnable-track {
+    background: #eee;
+    cursor: pointer;
+
+    height: 2px;
+    border: 1px solid #888;
+    border-radius: 1px;
+}
+input[type=range]::-webkit-slider-thumb {
+    background: #eee;
+
+    box-sizing: border-box;
+    width: var(--thumb-width);
+    height: 20px;
+
+    cursor: pointer;
+
+    border: 1px solid #888;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+/* respect dark mode */
+
+@media (prefers-color-scheme: dark) {
+  .leaflet-layer,
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out,
+  .leaflet-control-layers,
+  .leaflet-control-geocoder,
+  .leaflet-control-scale,
+  .leaflet-control-attribution {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  }
+  .leaflet-control-geocoder-form,
+  .leaflet-control-geocoder-form > input:nth-child(1),
+  .data-panel,
+  #sidebar,
+  #info,
+  #data-entry-form,
+  #more-data-entry-form,
+  #checks{
+    color: white;
+    background-color: black;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  * {
+    box-sizing: border-box;
+  }
+  .row::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+  [class*="col-"] {
+    float: left;
+    padding: 15px;
+  }
+
+  html {
+    font-family: "Lucida Sans", sans-serif;
+  }
+
+  #map {
+    width: 100%;
+    height: 99%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  [class*="col-"] {
+    width: 100%;
+  }
+  .col-1 {max-height: 30%;}
+  #buttonBar {
+    width: 70px;
+    position: absolute;
+    left: 2px;
+    top: 170px;
+    padding: 0px;
+  }
+}
